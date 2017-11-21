@@ -1,0 +1,25 @@
+task compile {
+    group 'Build tasks'
+    doLast {
+        println 'Compiling classes'
+    }
+}
+
+task jar {
+    group 'Build tasks'
+    dependsOn compile
+    doLast {
+        println 'Building JAR'
+    }
+}
+
+task deploy {
+    group 'Build tasks'
+    mustRunAfter jar
+    onlyIf {
+        project.hasProperty 'ci'
+    }
+    doLast {
+        println 'Uploading JAR'
+    }
+}
